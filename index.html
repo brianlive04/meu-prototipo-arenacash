@@ -9,10 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --azul-noite: #071B3F;
-    --azul-eletrico: #2D5CFF;
-    --azul-claro: #7FA6FF;
-    --gelo: #EAF0FF;
+    --roxo-noite: #1B0B3F;
+    --roxo-eletrico: #7C3AED;
+    --verde-menta: #6EE7B7;
+    --verde-esmeralda: #10B981;
+    --lilas-claro: #D9CCFF;
     --branco: #FFFFFF;
   }
 
@@ -20,7 +21,7 @@
 
   html, body{
     height:100%;
-    background: #DCE4F0;
+    background: #E7E1F5;
     font-family: 'Inter', sans-serif;
     display:flex;
     align-items:center;
@@ -33,7 +34,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    padding: 32px;
+    padding: clamp(16px, 4vw, 32px);
   }
 
   .slide{
@@ -41,10 +42,11 @@
     width:1280px;
     max-width:100%;
     aspect-ratio: 16 / 9;
-    background: var(--azul-noite);
+    background: var(--roxo-noite);
+    border: clamp(8px, 1.4vw, 14px) solid var(--branco);
     border-radius: 20px;
     overflow:hidden;
-    box-shadow: 0 40px 80px -20px rgba(7,27,63,0.5);
+    box-shadow: 0 40px 80px -20px rgba(27,11,63,0.5), 0 0 0 1px rgba(27,11,63,0.06);
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -57,8 +59,8 @@
     position:absolute;
     inset:0;
     background:
-      radial-gradient(circle at 8% 92%, rgba(45,92,255,0.35), transparent 45%),
-      linear-gradient(135deg, var(--azul-noite) 40%, var(--azul-eletrico) 145%);
+      radial-gradient(circle at 8% 92%, rgba(16,185,129,0.35), transparent 45%),
+      linear-gradient(135deg, var(--roxo-noite) 40%, var(--roxo-eletrico) 145%);
     z-index:0;
   }
 
@@ -106,13 +108,13 @@
     font-family:'Sora', sans-serif;
     font-weight: 800;
     color: var(--branco);
-    font-size: 64px;
-    line-height: 1.04;
+    font-size: clamp(32px, 5.5vw, 64px);
+    line-height: 1.08;
     letter-spacing: -0.01em;
   }
 
   h1 .valor{
-    color: #BFD3FF;
+    color: var(--lilas-claro);
     -webkit-text-stroke: 1px rgba(255,255,255,0.35);
   }
 
@@ -120,9 +122,9 @@
     margin-top: 24px;
     font-family:'Inter', sans-serif;
     font-weight: 400;
-    font-size: 19px;
+    font-size: clamp(15px, 1.6vw, 19px);
     line-height: 1.55;
-    color: rgba(234,240,255,0.85);
+    color: rgba(230,224,250,0.85);
     max-width: 480px;
   }
 
@@ -132,7 +134,7 @@
     align-items:center;
     gap:10px;
     background: var(--branco);
-    color: var(--azul-noite);
+    color: var(--roxo-noite);
     font-family:'Sora', sans-serif;
     font-weight:700;
     font-size: 17px;
@@ -150,7 +152,7 @@
   }
 
   .cta:focus-visible{
-    outline: 3px solid var(--azul-claro);
+    outline: 3px solid var(--verde-menta);
     outline-offset: 3px;
   }
 
@@ -184,14 +186,14 @@
   .moeda.a{
     top: 10px;
     left: 0;
-    background: linear-gradient(160deg, #3A6BFF, #1E3FA8);
+    background: linear-gradient(160deg, #A78BFA, #6D28D9);
     box-shadow: 0 25px 50px -15px rgba(0,0,0,0.5);
   }
 
   .moeda.b{
     bottom: 0;
     right: 0;
-    background: linear-gradient(160deg, #7FA6FF, #2D5CFF);
+    background: linear-gradient(160deg, #6EE7B7, #059669);
     box-shadow: 0 25px 50px -15px rgba(0,0,0,0.5);
   }
 
@@ -230,7 +232,7 @@
     justify-content:center;
     font-family:'Sora', sans-serif;
     font-weight:800;
-    color: var(--azul-eletrico);
+    color: var(--roxo-eletrico);
     font-size: 15px;
   }
 
@@ -242,11 +244,29 @@
     letter-spacing: 0.01em;
   }
 
+  /* Telas médias (tablets): reduz a área das moedas sem escondê-las de vez */
+  @media (max-width: 960px){
+    .content{ max-width: 78%; }
+    .moedas{
+      width: 220px;
+      height: 220px;
+    }
+    .moeda{ width: 140px; height: 140px; }
+    .moeda .cifrao{ font-size: 30px; }
+  }
+
+  /* Telas pequenas (celulares): empilha o conteúdo, mas mantém a moldura */
   @media (max-width: 720px){
-    .slide{ aspect-ratio: 3/4; padding: 8% 8%; }
+    .slide{ aspect-ratio: auto; min-height: auto; padding: 12% 8%; border-radius: 16px; }
     .content{ max-width: 100%; }
-    h1{ font-size: 40px; }
+    .subtitulo{ max-width: 100%; }
     .moedas{ display:none; }
+  }
+
+  /* Telas muito pequenas: ajusta espaçamentos e o botão */
+  @media (max-width: 380px){
+    .eyebrow{ font-size: 12px; padding: 6px 14px 6px 12px; margin-bottom: 24px; }
+    .cta{ width:100%; justify-content:center; font-size: 15px; padding: 14px 24px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -299,5 +319,3 @@
 
 </body>
 </html>
-
-primeiro slide da capa da campanha indique um amigo
